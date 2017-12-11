@@ -10,7 +10,6 @@ class RunLengthEncodingTest {
         assertThat(RunLengthEncoding(""), equalTo(""))
     }
 
-    @Ignore
     @Test
     fun `encode single characters without count`() {
         assertThat(RunLengthEncoding("XYZ"), equalTo("XYZ"))
