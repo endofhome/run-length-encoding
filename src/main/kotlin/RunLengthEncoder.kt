@@ -21,7 +21,7 @@ object RunLengthEncoder {
             }
             currentCharIndex++
         }
-        return stringPresentationOf(encodedPairs)
+        return stringRepresentationOf(encodedPairs)
     }
 
     private fun moreCharacters(currentCharIndex: Int, s: String) = currentCharIndex < s.length
@@ -35,7 +35,7 @@ object RunLengthEncoder {
             else -> this.toString()
         }
 
-    private fun stringPresentationOf(encodedPairs: MutableList<Pair<Int, Char>>): String {
+    private fun stringRepresentationOf(encodedPairs: MutableList<Pair<Int, Char>>): String {
         return encodedPairs
                 .map { "${it.first.ifNotOne()}${it.second}" }
                 .joinToString("")
