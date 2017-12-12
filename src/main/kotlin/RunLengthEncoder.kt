@@ -1,4 +1,4 @@
-object RunLengthEncoding {
+object RunLengthEncoder {
     operator fun invoke(string: String) = string.let {
         when {
             it.isEmpty() -> ""
@@ -31,4 +31,8 @@ object RunLengthEncoding {
             1 -> ""
             else -> this.toString()
         }
+}
+
+object RunLengthDecoder {
+    operator fun invoke(s: String) = ""
 }
