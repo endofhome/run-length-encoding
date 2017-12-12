@@ -18,4 +18,9 @@ class RunLengthEncodingTest {
     fun `encode string with no single characters`() {
         assertThat(RunLengthEncoding("AABBBCCCC"), equalTo("2A3B4C"))
     }
+
+    @Test
+    fun `encode string with single and mixed characters`() {
+        assertThat(RunLengthEncoding("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"), equalTo("12WB12W3B24WB"))
+    }
 }
