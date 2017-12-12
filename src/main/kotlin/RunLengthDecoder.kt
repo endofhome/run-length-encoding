@@ -19,7 +19,7 @@ object RunLengthDecoder {
                     lastChar.isDigit() -> duplicationValue = Integer.parseInt("$lastChar$currentChar")
                 }
             }
-            if (currentChar.isLetter()) {
+            if (currentChar.isLetter() || currentChar.isWhitespace()) {
                 (1..duplicationValue).forEach {
                     decodedChars.add(currentChar)
                 }

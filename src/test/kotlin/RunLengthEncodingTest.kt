@@ -58,4 +58,9 @@ class RunLengthEncodingTest {
     fun `decode string with lowercase characters`() {
         assertThat(RunLengthDecoder("2a3b4c"), equalTo("aabbbcccc"))
     }
+
+    @Test
+    fun `decode string with mixed whitespace characters in it`() {
+        assertThat(RunLengthDecoder("2 hs2q q2w2 "), equalTo("  hsqq qww  "))
+    }
 }
