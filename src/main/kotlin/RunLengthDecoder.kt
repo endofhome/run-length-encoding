@@ -15,7 +15,7 @@ object RunLengthDecoder {
             val lastChar = lastChar(s, currentCharIndex)
             if (currentChar.isDigit()) {
                 when {
-                    lastChar == null || lastChar.isLetter() -> duplicationValue = Integer.parseInt(currentChar.toString())
+                    lastChar == null || lastChar.isLetter() || lastChar.isWhitespace() -> duplicationValue = Integer.parseInt(currentChar.toString())
                     lastChar.isDigit() -> duplicationValue = Integer.parseInt("$lastChar$currentChar")
                 }
             }

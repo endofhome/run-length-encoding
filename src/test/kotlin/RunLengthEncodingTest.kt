@@ -63,4 +63,12 @@ class RunLengthEncodingTest {
     fun `decode string with mixed whitespace characters in it`() {
         assertThat(RunLengthDecoder("2 hs2q q2w2 "), equalTo("  hsqq qww  "))
     }
+
+    @Test
+    fun `Encode a string and then decode it - should return the same one`() {
+        val originalString = "zzz ZZ  zZ"
+        val encoded = RunLengthEncoder(originalString)
+        val decoded = RunLengthDecoder(encoded)
+        assertThat(decoded, equalTo(originalString))
+    }
 }
