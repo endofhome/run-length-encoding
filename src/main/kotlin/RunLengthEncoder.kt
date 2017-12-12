@@ -10,9 +10,9 @@ object RunLengthEncoder {
         var currentCharIndex = 0
         var selectedCharIndex = 0
         val encodedPairs: MutableList<Pair<Int, Char>> = mutableListOf()
-        while (currentCharIndex < s.length) {
+        while (moreCharacters(currentCharIndex, s)) {
             var count = 0
-            while (selectedCharIndex < s.length && s[selectedCharIndex] == s[currentCharIndex]) {
+            while (moreCharacters(selectedCharIndex, s) && characterMatches(s, selectedCharIndex, currentCharIndex)) {
                 count++
                 selectedCharIndex++
             }
@@ -21,16 +21,25 @@ object RunLengthEncoder {
             }
             currentCharIndex++
         }
-        return encodedPairs
-                .map { "${it.first.ifNotOne()}${it.second}" }
-                .joinToString("")
+        return stringPresentationOf(encodedPairs)
     }
+
+    private fun moreCharacters(currentCharIndex: Int, s: String) = currentCharIndex < s.length
+
+    private fun characterMatches(s: String, selectedCharIndex: Int, currentCharIndex: Int) =
+            s[selectedCharIndex] == s[currentCharIndex]
 
     private fun Int.ifNotOne() =
         when (this) {
             1 -> ""
             else -> this.toString()
         }
+
+    private fun stringPresentationOf(encodedPairs: MutableList<Pair<Int, Char>>): String {
+        return encodedPairs
+                .map { "${it.first.ifNotOne()}${it.second}" }
+                .joinToString("")
+    }
 }
 
 object RunLengthDecoder {
