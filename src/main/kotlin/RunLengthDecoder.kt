@@ -12,16 +12,26 @@ object RunLengthDecoder {
         val decodedChars: MutableList<Char> = mutableListOf()
         while (currentCharIndex < s.length) {
             val currentChar = s[currentCharIndex]
+            val lastChar = lastChar(s, currentCharIndex)
             if (currentChar.isDigit()) {
-                duplicationValue = Integer.parseInt(currentChar.toString())
+                when {
+                    lastChar == null || lastChar.isLetter() -> duplicationValue = Integer.parseInt(currentChar.toString())
+                    lastChar.isDigit() -> duplicationValue = Integer.parseInt("$lastChar$currentChar")
+                }
             }
             if (currentChar.isLetter()) {
                 (1..duplicationValue).forEach {
                     decodedChars.add(currentChar)
                 }
+                duplicationValue = 1
             }
             currentCharIndex++
         }
         return decodedChars.joinToString("")
+    }
+
+    private fun lastChar(s: String, currentCharIndex: Int) = when (currentCharIndex) {
+        0 -> null
+        else -> s[currentCharIndex - 1]
     }
 }

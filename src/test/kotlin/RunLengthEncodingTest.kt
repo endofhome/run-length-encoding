@@ -48,4 +48,9 @@ class RunLengthEncodingTest {
     fun `decode string with no single characters`() {
         assertThat(RunLengthDecoder("2A3B4C"), equalTo("AABBBCCCC"))
     }
+
+    @Test
+    fun `decode string with single and repeated characters`() {
+        assertThat(RunLengthDecoder("12WB12W3B24WB"), equalTo("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"))
+    }
 }
