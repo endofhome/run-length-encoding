@@ -18,9 +18,10 @@ object RunLengthEncoder {
         val numberOfRepeats = partitionedString.repeatedChars.length.display()
         val character = partitionedString.repeatedChars.first()
         val encoded = "$processed$numberOfRepeats$character"
+        val remainderExists = partitionedString.remainder.isNotEmpty()
         return when {
-            partitionedString.remainder.isNotEmpty() -> { encode(partitionedString.remainder.toString(), encoded) }
-            else -> { encoded }
+            remainderExists -> encode(partitionedString.remainder.toString(), encoded)
+            else -> encoded
         }
     }
 
