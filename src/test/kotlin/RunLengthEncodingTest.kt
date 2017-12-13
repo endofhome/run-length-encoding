@@ -1,5 +1,6 @@
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import org.junit.Ignore
 import org.junit.Test
 
 class RunLengthEncodingTest {
@@ -34,36 +35,43 @@ class RunLengthEncodingTest {
         assertThat(RunLengthEncoder("aabbbcccc"), equalTo("2a3b4c"))
     }
 
+    @Ignore
     @Test
     fun `decode empty string`() {
         assertThat(RunLengthDecoder(""), equalTo(""))
     }
 
+    @Ignore
     @Test
     fun `decode string with single characters only`() {
         assertThat(RunLengthDecoder("XYZ"), equalTo("XYZ"))
     }
 
+    @Ignore
     @Test
     fun `decode string with no single characters`() {
         assertThat(RunLengthDecoder("2A3B4C"), equalTo("AABBBCCCC"))
     }
 
+    @Ignore
     @Test
     fun `decode string with single and repeated characters`() {
         assertThat(RunLengthDecoder("12WB12W3B24WB"), equalTo("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"))
     }
 
+    @Ignore
     @Test
     fun `decode string with lowercase characters`() {
         assertThat(RunLengthDecoder("2a3b4c"), equalTo("aabbbcccc"))
     }
 
+    @Ignore
     @Test
     fun `decode string with mixed whitespace characters in it`() {
         assertThat(RunLengthDecoder("2 hs2q q2w2 "), equalTo("  hsqq qww  "))
     }
 
+    @Ignore
     @Test
     fun `Encode a string and then decode it - should return the same one`() {
         val originalString = "zzz ZZ  zZ"
