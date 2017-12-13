@@ -14,21 +14,31 @@ object RunLengthDecoder {
             val currentChar = s[currentCharIndex]
             val lastChar = lastChar(s, currentCharIndex)
             if (currentChar.isDigit()) {
-                when {
-                    lastChar == null || lastChar.isLetter() || lastChar.isWhitespace() -> duplicationValue = Integer.parseInt(currentChar.toString())
-                    lastChar.isDigit() -> duplicationValue = Integer.parseInt("$lastChar$currentChar")
-                }
+                duplicationValue = foundValue(lastChar, currentChar)
             }
             if (currentChar.isLetter() || currentChar.isWhitespace()) {
-                (1..duplicationValue).forEach {
-                    decodedChars.add(currentChar)
-                }
+                storeDecodedChars(duplicationValue, decodedChars, currentChar)
                 duplicationValue = 1
             }
             currentCharIndex++
         }
         return decodedChars.joinToString("")
     }
+
+    private fun storeDecodedChars(duplicationValue: Int, decodedChars: MutableList<Char>, currentChar: Char) {
+        (1..duplicationValue).forEach {
+            decodedChars.add(currentChar)
+        }
+    }
+
+    private fun foundValue(lastChar: Char?, currentChar: Char) =
+            when {
+                lastChar == null || lastChar.isNonNumerical() -> Integer.parseInt(currentChar.toString())
+                lastChar.isDigit() -> Integer.parseInt("$lastChar$currentChar")
+                else -> error("not sure what to do with $lastChar")
+            }
+
+    private fun Char.isNonNumerical() = this.isLetter() || this.isWhitespace()
 
     private fun lastChar(s: String, currentCharIndex: Int) = when (currentCharIndex) {
         0 -> null
