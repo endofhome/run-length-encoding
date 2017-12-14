@@ -8,31 +8,37 @@ object RunLengthDecoder {
 
     private fun decode(s: String, processed: String = ""): String {
         val partitionedString = partition(s)
-        val times = repeatTimes(partitionedString)
+        val remainder = partitionedString.remainder
+        val times = repeatsFor(partitionedString.repeatedChars)
         val characterToRepeat = partitionedString.repeatedChars.first { !it.isDigit() }
-        val repeatedChar = (1..times).map { characterToRepeat }.joinToString("")
+        val repeatedChar = (1..times).map { characterToRepeat }
+                                     .joinToString("")
         val decoded = "$processed$repeatedChar"
+
         return when {
-            partitionedString.remainder.isNotEmpty() -> decode(partitionedString.remainder.toString(), decoded)
-            else -> decoded
+            remainder.isNotEmpty() -> decode(remainder.toString(), decoded)
+            else                   -> decoded
         }
     }
 
     private fun partition(s: String): Partition {
         val nextNonDigit = s.find { !it.isDigit() }
+
         return nextNonDigit?.let {
-            val nextGroupingIndex = s.indexOf(it) + 1
-            val encodedChar = s.subSequence(0, nextGroupingIndex)
-            val remainder = s.subSequence(nextGroupingIndex, s.length)
+            val nextEncodedCharIndex = s.indexOf(it) + 1
+            val encodedChar = s.subSequence(0, nextEncodedCharIndex)
+            val remainder = s.subSequence(nextEncodedCharIndex, s.length)
             Partition(encodedChar, remainder)
         } ?: Partition(s, "")
     }
 
-    private fun repeatTimes(partitionedString: Partition): Int {
-        val stringRepeats = partitionedString.repeatedChars.filter { it.isDigit() }.toList().joinToString("")
+    private fun repeatsFor(repeatedChars: CharSequence): Int {
+        val stringRepeats = repeatedChars.filter { it.isDigit() }
+                                         .toList()
+                                         .joinToString("")
         return when {
             stringRepeats.isEmpty() -> 1
-            else -> Integer.parseInt(stringRepeats)
+            else                    -> Integer.parseInt(stringRepeats)
         }
     }
 }
