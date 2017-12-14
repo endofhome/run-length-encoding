@@ -2,7 +2,7 @@ object RunLengthEncoder {
     operator fun invoke(s: String) = s.let {
         when {
             it.isEmpty() -> ""
-            else -> encode(it)
+            else         -> encode(it)
         }
     }
 
@@ -14,7 +14,7 @@ object RunLengthEncoder {
         val encoded = "$processed$numberOfRepeats$characterToRepeat"
         return when {
             remainder.isNotEmpty() -> encode(remainder.toString(), encoded)
-            else -> encoded
+            else                   -> encoded
         }
     }
 
