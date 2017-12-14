@@ -35,13 +35,11 @@ class RunLengthEncodingTest {
         assertThat(RunLengthEncoder("aabbbcccc"), equalTo("2a3b4c"))
     }
 
-    @Ignore
     @Test
     fun `decode empty string`() {
         assertThat(RunLengthDecoder(""), equalTo(""))
     }
 
-    @Ignore
     @Test
     fun `decode string with single characters only`() {
         assertThat(RunLengthDecoder("XYZ"), equalTo("XYZ"))
