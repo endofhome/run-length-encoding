@@ -2,11 +2,11 @@ object RunLengthEncoder {
     operator fun invoke(s: String) = s.let {
         when {
             it.isEmpty() -> ""
-            else -> encode(it, "")
+            else -> encode(it)
         }
     }
 
-    private fun encode(s: String, processed: String): String {
+    private fun encode(s: String, processed: String = ""): String {
         val partitionedString = partition(s)
         val remainder = partitionedString.remainder
         val numberOfRepeats = partitionedString.repeatedChars.length.display()
