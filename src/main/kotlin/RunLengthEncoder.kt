@@ -23,7 +23,7 @@ object RunLengthEncoder {
         return nextChar?.let { next ->
             val nextCharIndex = s.indexOfFirst { it == next }
             val repeated = s.subSequence(0, nextCharIndex)
-            val remainder = s.subSequence(nextCharIndex, s.lastIndex + 1)
+            val remainder = s.subSequence(nextCharIndex, s.length)
             Partition(repeated, remainder)
         } ?: Partition(s, "")
     }
