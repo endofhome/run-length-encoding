@@ -32,6 +32,6 @@ object RunLengthEncoder {
         0, 1 -> ""
         else -> "$this"
     }
-
-    data class Partition(val repeatedChars: CharSequence, val remainder: CharSequence)
 }
+
+data class Partition(val repeatedChars: CharSequence, val remainder: CharSequence)
